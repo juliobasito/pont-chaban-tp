@@ -5,7 +5,7 @@ class searchInput extends Component {
   handleChange = (event) => {
     const newValue = event.target.value;
     this.props.putNewDate(newValue, this.props.nameInput)
-  }
+  };
 
   render() {
     return (
