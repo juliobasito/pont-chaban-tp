@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  Input
+} from 'react-materialize';
 
 class searchInput extends Component {
 
@@ -9,7 +12,7 @@ class searchInput extends Component {
 
   render() {
     return (
-      <input type="date" value={this.props.inputValue} onChange={this.handleChange} name={this.props.nameInput}/>
+      <Input type="date" value={this.props.inputValue} onChange={this.handleChange} name={this.props.nameInput}/>
     );
   }
 }
