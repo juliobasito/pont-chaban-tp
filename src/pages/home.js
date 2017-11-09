@@ -1,52 +1,88 @@
 import React, { Component } from 'react';
 import List from './../components/list';
 import { ProgressBar } from 'react-materialize';
+import Search from './../components/search';
 
 class HomePage extends Component {
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      data: null,
+        this.state = {
+            data: null,
+            api: 'http://localhost:1337'
+        }
     }
-  }
 
-  componentDidMount() {
+    componentDidMount() {
+        this.callApi();
+    }
 
-    // Get data from API
-    fetch('http://localhost:5000')
-      // parse response
-      .then((res) => res.json())
-      // use parsed response
-      .then((json) => {
+    callApi = () => {
+
         this.setState({
-          data: json,
+            data: null
         });
-      });
-  }
 
-  render() {
+        // Get data from API
+        fetch(this.state.api)
+        // parse response
+            .then((res, next) => {
+                if (res.ok) {
+                    console.log("Connexion à l'API réussi");
+                    return res.json()
+                }
+                else{
+                    console.log('Connexion à l\'API impossible');
+                    next()
+                }
+            }).catch((err) => {
+            if(err) {
+                alert("Connexion impossible : " + err)
+            }
+        })
+        // use parsed response
+            .then((json) => {
+                this.setState({
+                    data: json,
+                });
+            });
+    };
 
-    const { data } = this.state;
+    componentWillReceiveProps() {
+        this.callApi(false);
+    }
 
-    return (
-      <div>
+    changeApiDate = (beginDate, endDate) => {
+        let beginDateFormat = new Date(beginDate);
+        let endDateFormat = new Date(endDate);
+        var beginDateFormatted = beginDateFormat.getDate() + "/" + (beginDateFormat.getMonth() + 1) + "/" + (beginDateFormat.getYear() - 100);
+        var endDateFormatted = endDateFormat.getDate() + "/" + (endDateFormat.getMonth() + 1)  + "/" + (endDateFormat.getYear() - 100);
+        this.setState({
+            api: 'http://localhost:1337?from=' + beginDateFormatted + '&to=' + endDateFormatted
+        });
+        setTimeout(this.callApi, 1);
+    };
 
-        <h2> HomePage </h2>
+    render() {
 
+        return (
+            <div>
 
+                <h2> HomePage </h2>
 
-        {!data ? (
-          <ProgressBar />
-        ) : (
-          <div>
-            <List data={data} />
-          </div>
-        )}
-      </div>
-    );
-  }
+                <Search changeApiDate={this.changeApiDate}/>
+
+                {!this.state.data ? (
+                    <ProgressBar />
+                ) : (
+                    <div>
+                        <List data={this.state.data} />
+                    </div>
+                )}
+            </div>
+        );
+    }
 
 }
 
