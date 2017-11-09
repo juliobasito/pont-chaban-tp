@@ -6,7 +6,8 @@ class List extends Component {
 
   static propTypes = {
     data: PropTypes.array.isRequired,
-  }
+  };
+
 
   render() {
     return (

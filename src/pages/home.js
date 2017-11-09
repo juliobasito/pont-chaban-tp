@@ -49,10 +49,6 @@ class HomePage extends Component {
             });
     };
 
-    componentWillReceiveProps() {
-        this.callApi(false);
-    }
-
     changeApiDate = (beginDate, endDate) => {
         let beginDateFormat = new Date(beginDate);
         let endDateFormat = new Date(endDate);
@@ -61,6 +57,8 @@ class HomePage extends Component {
         this.setState({
             api: 'http://localhost:1337?from=' + beginDateFormatted + '&to=' + endDateFormatted
         });
+
+        // If a tiemout is not set, the list will not be set immediately.
         setTimeout(this.callApi, 1);
     };
 
