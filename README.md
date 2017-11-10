@@ -85,4 +85,4 @@ La liste des features à implémenter, dans l'ordre. __Penser à faire un commit
 ## API
 
 ATTENTION
-L'application est configuré pour avoir l'api lancé sur le port 5000.
+L'application est configuré pour avoir l'api lancé sur le port 1337.

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Redirect } from 'react-router-dom';
+
 import {
     Button,
     Card,
@@ -9,6 +11,7 @@ import {
 
 import Header from "../components/header"
 
+let errorCode = null;
 
 class SinglePage extends Component {
 
@@ -17,24 +20,43 @@ class SinglePage extends Component {
 
         this.state = {
             data: null,
-            loadApi: true
+            loadApi: true,
+            redirect: ''
         }
     }
 
-    componentWillUpdate() {
-        setTimeout(this.loadApi, 1000);
+    componentWillReceiveProps(props) {
+        this.loadApi(props.match.params.id);
     }
 
     componentDidMount() {
-        this.loadApi();
+        this.loadApi(this.props.match.params.id);
     }
 
-    loadApi = () => {
+    loadApi = (id) => {
+
+        this.setState({
+            data: null
+        });
 
         // Get data from API
-        fetch('http://localhost:1337/'+ this.props.match.params.id)
+        fetch('http://localhost:1337/'+ id)
         // parse response
-            .then((res) => res.json())
+            .then((res, next) => {
+                if(res.ok){
+                    return res.json();
+                }else{
+                    errorCode = res.status;
+                    next();
+                }
+            })
+            .catch((err) => {
+                if(errorCode === 404){
+                    this.setState({
+                        redirect: <Redirect from={`/${this.props.match.params.id}`} to="/error-404"/>
+                    })
+                }
+            })
             // use parsed response
             .then((json) => {
                 this.setState({
@@ -44,22 +66,28 @@ class SinglePage extends Component {
     };
 
     render() {
-        const {data} = this.state;
+        const {data, redirect} = this.state;
 
         let info_pont_close = "";
-        if (data !== null && data.totale === true) {
-            info_pont_close = <div><Icon>block</Icon> Fermeture totale </div>;
+        if (data) {
+            if (data.totale === true) {
+                info_pont_close = <div><Icon>block</Icon> Fermeture totale </div>;
+            }
         }
 
         return (
             <div>
 
-                <Header id={this.props.match.params.id}/>
+                {!redirect ? (
+                    <Header id={this.props.match.params.id}/>
+                ) : (<div>{redirect}</div>)}
 
                 {!data ? (
                     <ProgressBar/>
                 ) : (
                     <div>
+
+                        {redirect}
 
                         <Card className='blue-grey darken-1' textClassName='white-text' title={data.date}>
                             {info_pont_close} <br/>
