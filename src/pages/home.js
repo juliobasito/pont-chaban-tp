@@ -52,22 +52,29 @@ class HomePage extends Component {
     changeApiDate = (beginDate, endDate) => {
         let beginDateFormat = new Date(beginDate);
         let endDateFormat = new Date(endDate);
-        var beginDateFormatted = beginDateFormat.getDate() + "/" + (beginDateFormat.getMonth() + 1) + "/" + (beginDateFormat.getYear() - 100);
-        var endDateFormatted = endDateFormat.getDate() + "/" + (endDateFormat.getMonth() + 1)  + "/" + (endDateFormat.getYear() - 100);
-        this.setState({
-            api: 'http://localhost:1337?from=' + beginDateFormatted + '&to=' + endDateFormatted
-        });
+        if (this.state.inputValueBegin <= this.state.inputValueEnd) {
+            let beginDateFormatted = beginDateFormat.getDate() + "/" + (beginDateFormat.getMonth() + 1) + "/" + (beginDateFormat.getYear() - 100);
+            let endDateFormatted = endDateFormat.getDate() + "/" + (endDateFormat.getMonth() + 1)  + "/" + (endDateFormat.getYear() - 100);
+            this.setState({
+                api: 'http://localhost:1337?from=' + beginDateFormatted + '&to=' + endDateFormatted
+            });
 
-        // If a tiemout is not set, the list will not be set immediately.
-        setTimeout(this.callApi, 1);
+            // If a tiemout is not set, the list will not be set immediately.
+            setTimeout(this.callApi, 1);
+        } else {
+            alert('Veuillez entrer une date de début antérieure à la date de fin')
+        }
+
     };
 
     render() {
 
         let message_no_result = '';
 
-        if (this.state.data !== null && this.state.data.length === 0)  {
-            message_no_result = <div> Pas de résultats </div>
+        if (this.state.data) {
+            if( this.state.data.length === 0)  {
+                message_no_result = <div> Pas de résultats </div>
+            }
         }
 
 
