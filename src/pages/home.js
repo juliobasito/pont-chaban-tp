@@ -64,6 +64,13 @@ class HomePage extends Component {
 
     render() {
 
+        let message_no_result = '';
+
+        if (this.state.data !== null && this.state.data.length === 0)  {
+            message_no_result = <div> Pas de résultats </div>
+        }
+
+
         return (
             <div>
 
@@ -75,6 +82,7 @@ class HomePage extends Component {
                     <ProgressBar />
                 ) : (
                     <div>
+                        {message_no_result}
                         <List data={this.state.data} />
                     </div>
                 )}
