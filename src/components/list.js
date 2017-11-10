@@ -4,24 +4,24 @@ import ListItem from './list-item';
 
 class List extends Component {
 
-  static propTypes = {
-    data: PropTypes.array.isRequired,
-  };
+    static propTypes = {
+        data: PropTypes.array.isRequired,
+    };
 
 
-  render() {
-    return (
-      <div>
+    render() {
+        return (
+            <div>
 
-        {this.props.data.map((item) => {
-          return <ListItem
-            key={item.id}
-            item={item}
-          />
-        })}
-      </div>
-    );
-  }
+                {this.props.data.map((item) => {
+                    return <ListItem
+                        key={item.id}
+                        item={item}
+                    />
+                })}
+            </div>
+        );
+    }
 
 }
 

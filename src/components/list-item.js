@@ -6,29 +6,29 @@ import { Link } from 'react-router-dom';
 
 class ListItem extends Component {
 
-  static propTypes = {
-    item: PropTypes.shape({
-      date: PropTypes.string.isRequired,
-    }).isRequired,
-  }
+    static propTypes = {
+        item: PropTypes.shape({
+            date: PropTypes.string.isRequired,
+        }).isRequired,
+    }
 
-  render() {
-    const { item } = this.props;
+    render() {
+        const { item } = this.props;
 
-    return (
-      <Card title={item.date} >
-
-
+        return (
+            <Card title={item.date} >
 
 
-        <Link
-          to={`/${item.id}`}
-        >
-          Voir plus de détails
-        </Link>
-      </Card>
-    );
-  }
+
+
+                <Link
+                    to={`/${item.id}`}
+                >
+                    Voir plus de détails
+                </Link>
+            </Card>
+        );
+    }
 
 }
 

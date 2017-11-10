@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
-import { Redirect } from 'react-router-dom';
+import {
+    Link,
+    Redirect
+} from 'react-router-dom';
 
 import {
     Button,
     Card,
+    Col,
     Icon,
     ProgressBar
 } from 'react-materialize';
@@ -80,7 +84,15 @@ class SinglePage extends Component {
 
                 {!redirect ? (
                     <Header id={this.props.match.params.id}/>
-                ) : (<div>{redirect}</div>)}
+                ) : (<div>
+                    <Col s={4} className='grid-example'>
+                        <Link
+                            to="/"
+                        >
+                            <Icon>home</Icon>
+                        </Link>
+                    </Col>
+                    {redirect}</div>)}
 
                 {!data ? (
                     <ProgressBar/>
@@ -89,11 +101,10 @@ class SinglePage extends Component {
 
                         {redirect}
 
-                        <Card className='blue-grey darken-1' textClassName='white-text' title={data.date}>
+                        <Card className='blue-grey darken-1' textClassName='white-text' title={data.date} actions={<a href={data.link} target="_blank">Pour plus d'informations</a>}>
                             {info_pont_close} <br/>
                             De {data.start} Jusqu'à {data.end}. <br/>
-                        Pour cause de {data.reason} <br/>
-                            <Button waves='light' node='a' href={data.link}> Pour plus d'informations </Button>
+                            Pour cause de {data.reason} <br/>
                         </Card>
                     </div>
                 )}

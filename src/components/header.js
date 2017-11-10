@@ -17,31 +17,31 @@ class Header extends Component {
             <div>
 
                 <Row>
-                <Col s={4} className='grid-example'>
-                    <Link
-                        to="/"
-                    >
-                        <Icon>home</Icon>
-                    </Link>
-                </Col>
+                    <Col s={4} className='grid-example'>
+                        <Link
+                            to="/"
+                        >
+                            <Icon>home</Icon>
+                        </Link>
+                    </Col>
 
-                <Col s={4} className='grid-example'></Col>
+                    <Col s={4} className='grid-example'></Col>
 
 
-                <Col s={2} className='grid-example'>
+                    <Col s={2} className='grid-example'>
 
-                    <Link
-                        to={`/${prev_id}`}
-                    >
-                        <Icon>navigate_before</Icon>
-                    </Link>
+                        <Link
+                            to={`/${prev_id}`}
+                        >
+                            <Icon>navigate_before</Icon>
+                        </Link>
 
-                    <Link
-                        to={`/${next_id}`}
-                    >
-                        <Icon>navigate_next</Icon>
-                    </Link>
-                </Col>
+                        <Link
+                            to={`/${next_id}`}
+                        >
+                            <Icon>navigate_next</Icon>
+                        </Link>
+                    </Col>
                 </Row>
             </div>
         );
