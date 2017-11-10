@@ -52,7 +52,7 @@ class HomePage extends Component {
     changeApiDate = (beginDate, endDate) => {
         let beginDateFormat = new Date(beginDate);
         let endDateFormat = new Date(endDate);
-        if (this.state.inputValueBegin <= this.state.inputValueEnd) {
+        if (beginDateFormat <= endDateFormat) {
             let beginDateFormatted = beginDateFormat.getDate() + "/" + (beginDateFormat.getMonth() + 1) + "/" + (beginDateFormat.getYear() - 100);
             let endDateFormatted = endDateFormat.getDate() + "/" + (endDateFormat.getMonth() + 1)  + "/" + (endDateFormat.getYear() - 100);
             this.setState({
