@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SearchInput from './searchInput';
 import {
-  Button,
-  Icon
+    Button,
+    Icon
 } from 'react-materialize';
 
 class Search extends Component {
@@ -11,8 +11,8 @@ class Search extends Component {
         super(props);
 
         this.state = {
-            inputValueBegin: null,
-            inputValueEnd: null
+            inputValueBegin: '',
+            inputValueEnd: ''
         };
     }
 
@@ -30,7 +30,7 @@ class Search extends Component {
     };
 
     changeDate = () => {
-        if (this.state.inputValueBegin !== null || this.state.inputValueEnd !== null) {
+        if (this.state.inputValueBegin !== '' || this.state.inputValueEnd !== '') {
             this.props.changeApiDate(this.state.inputValueBegin, this.state.inputValueEnd)
         }
     };
@@ -38,8 +38,8 @@ class Search extends Component {
     render() {
         return (
             <div>
-              <SearchInput inputValue={this.state.inputValueBegin} putNewDate={this.putNewDate} nameInput="begin-date"/>
-              <SearchInput inputValue={this.state.inputValueEnd} putNewDate={this.putNewDate} nameInput="end-date"/>
+                <SearchInput inputValue={this.state.inputValueBegin} putNewDate={this.putNewDate} nameInput="begin-date"/>
+                <SearchInput inputValue={this.state.inputValueEnd} putNewDate={this.putNewDate} nameInput="end-date"/>
                 <Button waves='light' onClick={this.changeDate}>Valider<Icon left>insert_chart</Icon></Button>
             </div>
         );
